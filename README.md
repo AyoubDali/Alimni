@@ -1,1 +1,1 @@
-# Alimni
+# Alimni app
