@@ -14,7 +14,6 @@ import os
 classes_path = './data/labels/coco.names'
 weights_path = './weights/yolov3.tf'
 size = 416                      # size images are resized for model
-output_path = './detections/'   # path to output folder where images with detections are saved
 num_classes = 80                # number of classes in model
 
 # load in weights and classes
@@ -32,6 +31,15 @@ print('classes loaded')
 
 # Initialize Flask application
 app = Flask(__name__)
+
+
+# Sign in API 
+@app.route('/signIn', methods=['GET'])
+def signIn():
+    print("sign in test")
+    return "done"
+
+
 
 # API that returns JSON with classes found in images
 @app.route('/detections', methods=['POST'])
@@ -67,8 +75,6 @@ def get_detections():
         t1 = time.time()
         boxes, scores, classes, nums = yolo(img)
         t2 = time.time()
-        print('time: {}'.format(t2 - t1))
-
         print('detections:')
         for i in range(nums[0]):
             print('\t{}, {}, {}'.format(class_names[int(classes[0][i])],
@@ -84,7 +90,6 @@ def get_detections():
         })
         img = cv2.cvtColor(raw_img.numpy(), cv2.COLOR_RGB2BGR)
         img = draw_outputs(img, (boxes, scores, classes, nums), class_names)
-        cv2.imwrite(output_path + 'detection' + str(num) + '.jpg', img)
         #print('output saved to: {}'.format(output_path + 'detection' + str(num) + '.jpg'))
 
     #remove temporary images
