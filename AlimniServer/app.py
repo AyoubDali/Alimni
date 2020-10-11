@@ -10,6 +10,9 @@ from yolov3_tf2.dataset import transform_images, load_tfrecord_dataset
 from yolov3_tf2.utils import draw_outputs
 from flask import Flask, request, Response, jsonify, send_from_directory, abort
 import os
+from pyyoutube import Api
+from googleapiclient.discovery import build
+
 
 classes_path = './data/labels/coco.names'
 weights_path = './weights/yolov3.tf'
@@ -38,6 +41,26 @@ app = Flask(__name__)
 def signIn():
     print("sign in test")
     return "done"
+
+
+# get podcast from youtube api  
+@app.route('/podcast', methods=['POST'])
+def getPodcasts():
+    
+    youtube = build(
+            'youtube', 
+            "v3", 
+            developerKey="AIzaSyDmOteZ9T3cS7AiTvMpwJgTUZeIp3dYhmM")
+    api_key='AIzaSyDmOteZ9T3cS7AiTvMpwJgTUZeIp3dYhmM' 
+    #api = Api(api_key='AIzaSyDmOteZ9T3cS7AiTvMpwJgTUZeIp3dYhmM')
+    #channel_by_id = api.get_channel_info(channel_id="UC_x5XG1OV2P6uZZ5FSM9Ttw")
+    search_response = youtube.search().list(
+            q="podcast",
+            part="id,snippet",
+            maxResults=20
+          ).execute()    
+    
+    return search_response
 
 
 
