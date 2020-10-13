@@ -50,16 +50,13 @@ def getPodcasts():
     youtube = build(
             'youtube', 
             "v3", 
-            developerKey="AIzaSyDmOteZ9T3cS7AiTvMpwJgTUZeIp3dYhmM")
-    api_key='AIzaSyDmOteZ9T3cS7AiTvMpwJgTUZeIp3dYhmM' 
-    #api = Api(api_key='AIzaSyDmOteZ9T3cS7AiTvMpwJgTUZeIp3dYhmM')
-    #channel_by_id = api.get_channel_info(channel_id="UC_x5XG1OV2P6uZZ5FSM9Ttw")
+            developerKey="paste your youtube api key")
     search_response = youtube.search().list(
             q="podcast",
             part="id,snippet",
             maxResults=20
           ).execute()    
-    
+    print(search_response)
     return search_response
 
 
@@ -70,9 +67,11 @@ def get_detections():
     
     raw_images = []
     images = request.files.getlist("images")
+
     #images = request.files.get('images')
 
     image_names = []
+    print('images')
     print(images)
     for image in images:
         image_name = image.filename
@@ -118,6 +117,7 @@ def get_detections():
     for name in image_names:
         os.remove(name)
     try:
+        print(response)
         return jsonify({"response":response}), 200
     except FileNotFoundError:
         abort(404)
@@ -144,14 +144,14 @@ def get_image():
                                         np.array(boxes[0][i])))
     img = cv2.cvtColor(img_raw.numpy(), cv2.COLOR_RGB2BGR)
     img = draw_outputs(img, (boxes, scores, classes, nums), class_names)
-    cv2.imwrite(output_path + 'detection.jpg', img)
+    #cv2.imwrite(output_path + 'detection.jpg', img)
     
     # prepare image for response
     _, img_encoded = cv2.imencode('.png', img)
     response = img_encoded.tostring()
     
     #remove temporary image
-    os.remove(image_name)
+    #os.remove(image_name)
 
     try:
         return Response(response=response, status=200, mimetype='image/png')
