@@ -20,8 +20,8 @@
 
     pip install -r requirements.txt
 
-  and then run on your terminal 
+  then run on your terminal 
 
     python app.py
-
+ 	
 
