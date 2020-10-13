@@ -1,7 +1,7 @@
 # Alimni app
-    You want to learn English but you got bored using a dictionary and you want a more immersive user experience ? Alimni is for you
-
-    Its a mobile application which offer a new way to learn english, you just have to open your smartphone camera and you will get the sourrouding objects names.
+    You want to learn English, but you got bored using a dictionary. Why? You want a more immersive user experience! You want to see, to watch and to capture your surrounding as a way of learning. Alimni is for you
+    
+    Its a mobile application which offers a new way to learn English, you just have to open your smartphone camera and you will get the surrounding objects names.
     
     
 ## app installation
