@@ -1,1 +1,1 @@
-test
+The flutter app has been released
